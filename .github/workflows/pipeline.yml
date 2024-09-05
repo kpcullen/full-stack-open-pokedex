@@ -26,9 +26,4 @@ jobs:
       - name: Run Playwright tests
         run: npm run test:e2e
       - name: Trigger deployment
-        run: |
-          RESPONSE=$(curl -s -w "%{http_code}" -o response.txt "https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}")
-          if [ "$RESPONSE" -ne 200 ]; then
-           cat response.txt
-           exit 1
-          fi
+        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
