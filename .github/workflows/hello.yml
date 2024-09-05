@@ -12,3 +12,10 @@ jobs:
       - name: Say hello
         run: |
           echo "Hello World!"
+
+  show_date_job:
+    runs-on: ubunutu-20.04
+    steps:
+      - name: Show date
+        run: |
+          date
