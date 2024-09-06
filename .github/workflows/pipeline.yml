@@ -37,7 +37,7 @@ jobs:
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
       - name: Discord Notify Success
         if: ${{ success() }}
-        uses: rjstone/discord-webhook-notify@v1.0.4
+        uses: Ilshidur/action-discord@master
         with:
           severity: info
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
@@ -45,7 +45,7 @@ jobs:
 
       - name: Discord Notify Failure
         if: ${{ failure() }}
-        uses: rjstone/discord-webhook-notify@v1.0.4
+        uses: Ilshidur/action-discord@master
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
           severity: error
