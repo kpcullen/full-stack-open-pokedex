@@ -39,6 +39,7 @@ jobs:
         if: ${{ success() }}
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
+          severity: info
           webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           details: Successful deployment
 
@@ -47,7 +48,7 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          severity: info
+          severity: error
           details: |
             Error in deployment!:
             - Branch: ${{ github.ref }}
