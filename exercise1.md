@@ -9,3 +9,5 @@ In determining whether to go the self-hosting or cloud-based route for CI/CD of 
 However, since this is not a large project, and doesn't require an extraordinary amount of resources, such as GPUs, we're better off selecting a cloud-based service, specifially GitHub Actions. It'll save us the hassle of building and setting up our own system, and be more cost effective.
 
 This especially makes sense considering we are already collaborating and developing on GitHub. Therefore, it'll be easier to integrate into our workflow.
+
+#testing
