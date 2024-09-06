@@ -1,8 +1,5 @@
 name: Deployment pipeline
 
-env:
-  SKIP_DEPLOYMENT: ${{ contains(join(fromJSON(github.events.commits.*.message), ' '), '#skip') }}
-
 on:
   push:
     branches:
@@ -10,6 +7,9 @@ on:
   pull_request:
     branches: [main]
     types: [opened, synchronize]
+
+env:
+  SKIP_DEPLOYMENT: ${{ contains(join(github.events.commits.*.message, ' '), '#skip') }}
 
 jobs:
   simple_deployment_pipeline:
