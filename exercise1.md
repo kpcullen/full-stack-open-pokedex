@@ -10,4 +10,4 @@ However, since this is not a large project, and doesn't require an extraordinary
 
 This especially makes sense considering we are already collaborating and developing on GitHub. Therefore, it'll be easier to integrate into our workflow.
 
-#Testing!!!
+#Testing

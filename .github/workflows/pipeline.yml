@@ -21,20 +21,42 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm install
+
       - name: Check style
         run: npm run eslint
 
       - name: Build production code
         run: npm run build
+
       - name: Run tests
         run: npm run test
+
       - name: install playwright
         run: npx playwright install --with-deps
+
       - name: Run Playwright tests
         run: npm run test:e2e
+
       - name: Trigger deployment
         if: ${{ github.event_name == 'push' && !env.SKIP_DEPLOYMENT  }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
+
+      - name: Discord Notify Success
+        env:
+          DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
+        if: success()
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Project: ${{github.repository}} has been deployed'
+
+      - name: Discord Notify Failure
+        env:
+          DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
+        if: failure()
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'There was a problem with commit: ${{ github.sha }} in repo: ${{ github.repository }}'
+
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
