@@ -33,12 +33,12 @@ jobs:
       - name: Run Playwright tests
         run: npm run test:e2e
       - name: Trigger deployment
-        if: ${{ github.event_name == 'push' && !env.SKIP_DEPLOYMENT }}
+        if: ${{ github.event_name == 'push' && env.SKIP_DEPLOYMENT == 'false' }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
-    if: ${{ github.event_name == 'push' && !github.env.SKIP_DEPLOYMENT}}
+    if: ${{ github.event_name == 'push' && github.env.SKIP_DEPLOYMENT == 'false'}}
     steps:
       - uses: actions/checkout@v4
       - name: Bump version and push tag
