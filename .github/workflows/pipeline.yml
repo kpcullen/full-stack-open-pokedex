@@ -40,14 +40,14 @@ jobs:
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
           severity: info
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
           details: Successful deployment
 
       - name: Discord Notify Failure
         if: ${{ failure() }}
         uses: rjstone/discord-webhook-notify@v1.0.4
         with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
           severity: error
           details: |
             Error in deployment!:
