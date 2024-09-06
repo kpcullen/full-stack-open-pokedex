@@ -35,7 +35,6 @@ jobs:
       - name: Trigger deployment
         if: ${{ github.event_name == 'push' && !env.SKIP_DEPLOYMENT  }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
-
       - name: Discord Notify Success
         if: ${{ success() }}
         uses: rjstone/discord-webhook-notify@v1.0.4
@@ -52,7 +51,6 @@ jobs:
             Error in deployment!:
             - Branch: ${{ github.ref }}
             - Commit: ${{ github.event.head_commit.message }}
-
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
