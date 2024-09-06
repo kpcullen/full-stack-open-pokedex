@@ -42,23 +42,20 @@ jobs:
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
 
       - name: Discord Notify Success
+        env:
+          DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
         if: success()
-        uses: rjstone/discord-webhook-notify@v1.0.4
+        uses: Ilshidur/action-discord@master
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          severity: info
-          details: Successful deployment
+          args: 'Project: ${{github.repository}} has been deployed'
 
       - name: Discord Notify Failure
+        env:
+          DISCORD_WEBHOOK: ${{secrets.DISCORD_WEBHOOK}}
         if: failure()
-        uses: rjstone/discord-webhook-notify@v1.0.4
+        uses: Ilshidur/action-discord@master
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          severity: info
-          details: |
-            Error in deployment!:
-            - Repo: ${{ github.repository }}
-            - Commit: ${{ github.sha }}
+          args: 'There was a problem with commit: ${{ github.sha }} in repo: ${{ github.repository }}'
 
   tag_release:
     needs: [simple_deployment_pipeline]
