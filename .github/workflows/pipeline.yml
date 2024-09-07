@@ -60,6 +60,8 @@ jobs:
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
+    permissions:
+      contents: write
     if: ${{ github.event_name == 'push' && github.env.SKIP_DEPLOYMENT == 'false'}}
     steps:
       - uses: actions/checkout@v4
