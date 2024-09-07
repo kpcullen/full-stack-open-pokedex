@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-20.04
     permissions:
       contents: write
-    if: ${{ github.event_name == 'push' && github.env.SKIP_DEPLOYMENT == 'false'}}
+    if: ${{ github.event_name == 'push' && !github.env.SKIP_DEPLOYMENT }}
     steps:
       - uses: actions/checkout@v4
       - name: Bump version and push tag
